@@ -7,30 +7,34 @@ import AddMedicine from "./pages/AddMedicine";
 import UpdateMedicine from "./pages/UpdateMedicine";
 import AddIngredientPage from "./pages/AddIngredientPage";
 import UpdateIngredient from "./pages/UpdateIngredient";
+import Header from "./components/Header";
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/medicines/:medicineId' element={<MedicinePage />} />
-        <Route path='/medicines/add' element={<AddMedicine />} />
-        <Route path='/ingredients/add' element={<AddIngredientPage />} />
-        <Route
-          path='/ingredients/update/:ingredientId'
-          element={<UpdateIngredient />}
-        />
-        <Route
-          path='/ingredients/update/:ingredientId'
-          element={<AddMedicine />}
-        />
-        <Route
-          path='/medicines/update/:medicineId'
-          element={<UpdateMedicine />}
-        />
-        <Route path='/stock' element={<StockPage />} />
-      </Routes>
-    </Router>
+    <>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/medicines/:medicineId' element={<MedicinePage />} />
+          <Route path='/medicines/add' element={<AddMedicine />} />
+          <Route path='/ingredients/add' element={<AddIngredientPage />} />
+          <Route
+            path='/ingredients/update/:ingredientId'
+            element={<UpdateIngredient />}
+          />
+          <Route
+            path='/ingredients/update/:ingredientId'
+            element={<AddMedicine />}
+          />
+          <Route
+            path='/medicines/update/:medicineId'
+            element={<UpdateMedicine />}
+          />
+          <Route path='/stock' element={<StockPage />} />
+        </Routes>
+      </Router>
+    </>
   );
 };
 

@@ -10,6 +10,7 @@ import {
   Input,
   Stack,
 } from "@chakra-ui/react";
+import { FaPlus, FaTrash } from "react-icons/fa";
 
 const AddMedicineForm = ({ medicine }) => {
   const [medicineName, setMedicineName] = useState("");
@@ -27,6 +28,7 @@ const AddMedicineForm = ({ medicine }) => {
     setIngredientAmount("");
     setIngredientId("");
   };
+
   const handleRemoveIngredient = (index) => {
     const updatedIngredients = selectedIngredients.filter(
       (_, i) => i !== index
@@ -70,10 +72,9 @@ const AddMedicineForm = ({ medicine }) => {
       }
     }
   };
+
   useEffect(() => {
-    console.log(false);
     if (medicine != null) {
-      console.log(true);
       setMedicineName(medicine.name);
       setSelectedIngredients(
         medicine.ingredientsRequired.map((i) => {
@@ -100,8 +101,8 @@ const AddMedicineForm = ({ medicine }) => {
             />
           </FormControl>
           {selectedIngredients.map((ingredient, index) => (
-            <Stack key={index} direction='row' spacing='4'>
-              <FormControl>
+            <Stack key={index} direction='row' spacing='4' alignItems='center'>
+              <FormControl flex='1'>
                 <FormLabel>Ingredient ID:</FormLabel>
                 <Input
                   type='text'
@@ -110,7 +111,7 @@ const AddMedicineForm = ({ medicine }) => {
                   onChange={(event) => handleIngredientChange(index, event)}
                 />
               </FormControl>
-              <FormControl>
+              <FormControl flex='1'>
                 <FormLabel>Amount:</FormLabel>
                 <Input
                   type='text'
@@ -122,13 +123,14 @@ const AddMedicineForm = ({ medicine }) => {
               <Button
                 type='button'
                 onClick={() => handleRemoveIngredient(index)}
-              >
-                Remove
-              </Button>
+                colorScheme='red'
+                variant='outline'
+                leftIcon={<FaTrash />}
+              />
             </Stack>
           ))}
-          <Stack direction='row' spacing='4'>
-            <FormControl>
+          <Stack direction='row' spacing='4' alignItems='center'>
+            <FormControl flex='1'>
               <FormLabel>Ingredient ID:</FormLabel>
               <Input
                 type='text'
@@ -137,7 +139,7 @@ const AddMedicineForm = ({ medicine }) => {
                 onChange={(event) => setIngredientId(event.target.value)}
               />
             </FormControl>
-            <FormControl>
+            <FormControl flex='1'>
               <FormLabel>Ingredient Amount:</FormLabel>
               <Input
                 type='text'
@@ -145,11 +147,15 @@ const AddMedicineForm = ({ medicine }) => {
                 onChange={(event) => setIngredientAmount(event.target.value)}
               />
             </FormControl>
-            <Button type='button' onClick={handleAddIngredient}>
-              Add Ingredient
-            </Button>
+            <Button
+              type='button'
+              onClick={handleAddIngredient}
+              colorScheme='teal'
+              leftIcon={<FaPlus />}
+            />
           </Stack>
-          <Button type='submit'>
+
+          <Button type='submit' colorScheme='teal'>
             {isUpdate ? "Update Medicine" : "Add Medicine"}
           </Button>
         </Stack>

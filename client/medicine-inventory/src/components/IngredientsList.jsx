@@ -1,6 +1,17 @@
+// IngredientsList.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Box, Button, Link, List, ListItem, Heading } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  List,
+  ListItem,
+  Heading,
+  Text,
+  Divider,
+} from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+import { RiEdit2Line, RiDeleteBinLine } from "react-icons/ri";
 
 const IngredientsList = () => {
   const [ingredients, setIngredients] = useState([]);
@@ -34,7 +45,7 @@ const IngredientsList = () => {
 
   return (
     <Box>
-      <Heading as='h2' size='lg' mb='4'>
+      <Heading as='h2' size='lg' mb={4}>
         Ingredients in Stock
       </Heading>
       {error && <div>Error: {error}</div>}
@@ -43,29 +54,28 @@ const IngredientsList = () => {
           <ListItem
             key={ingredient._id}
             bg='gray.100'
-            p='4'
+            p={4}
             borderRadius='md'
             boxShadow='md'
           >
             <Box>
-              <Heading as='h3' size='md' mb='2'>
+              <Heading as='h3' size='md' mb={2}>
                 {ingredient.name}
               </Heading>
-              <p>Type: {ingredient.type}</p>
-              <p>Quantity: {ingredient.quantity}</p>
+              <Text>Type: {ingredient.type}</Text>
+              <Text>Quantity: {ingredient.quantity}</Text>
             </Box>
-            <Box mt='2'>
-              <Button
-                as={Link}
-                to={`/ingredients/update/${ingredient._id}`}
-                colorScheme='teal'
-                mr='2'
-              >
-                Update
-              </Button>
+            <Box mt={4}>
+              <Link to={`/ingredients/update/${ingredient._id}`}>
+                <Button colorScheme='teal' leftIcon={<RiEdit2Line />} mr={2}>
+                  Update
+                </Button>
+              </Link>
+
               <Button
                 colorScheme='red'
                 onClick={() => handleDelete(ingredient._id)}
+                leftIcon={<RiDeleteBinLine />}
               >
                 Delete
               </Button>
@@ -73,6 +83,7 @@ const IngredientsList = () => {
           </ListItem>
         ))}
       </List>
+      <Divider my={4} />
     </Box>
   );
 };

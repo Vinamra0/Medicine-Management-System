@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { RiEdit2Line } from "react-icons/ri";
 
 const AddIngredientForm = ({ ingredient }) => {
   const [name, setName] = useState("");
@@ -15,7 +16,7 @@ const AddIngredientForm = ({ ingredient }) => {
     e.preventDefault();
     if (isUpdate) {
       try {
-        const response = await axios.patch(
+        await axios.patch(
           `http://localhost:3000/api/ingredients/${ingredient._id}`,
           {
             name,
@@ -25,24 +26,22 @@ const AddIngredientForm = ({ ingredient }) => {
         );
         navigate("/stock");
       } catch (error) {
-        console.error("Error adding ingredient:", error);
+        console.error("Error updating ingredient:", error);
       }
     } else {
       try {
-        const response = await axios.post(
-          "http://localhost:3000/api/ingredients",
-          {
-            name,
-            type,
-            quantity: parseInt(quantity),
-          }
-        );
+        await axios.post("http://localhost:3000/api/ingredients", {
+          name,
+          type,
+          quantity: parseInt(quantity),
+        });
         navigate("/stock");
       } catch (error) {
         console.error("Error adding ingredient:", error);
       }
     }
   };
+
   useEffect(() => {
     if (ingredient != null) {
       setName(ingredient.name);
@@ -82,7 +81,12 @@ const AddIngredientForm = ({ ingredient }) => {
             required
           />
         </FormControl>
-        <Button type='submit'>
+        <Button
+          type='submit'
+          colorScheme='teal'
+          mt={4}
+          leftIcon={<RiEdit2Line />}
+        >
           {isUpdate ? "Update Ingredient" : "Add Ingredient"}
         </Button>
       </form>

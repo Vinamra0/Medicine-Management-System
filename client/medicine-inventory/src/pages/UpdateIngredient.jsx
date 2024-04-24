@@ -1,4 +1,6 @@
+// UpdateIngredient.jsx
 import React, { useEffect, useState } from "react";
+import { Box, Heading } from "@chakra-ui/react";
 import GoHomeButton from "../components/GoHomeButton";
 import AddIngredientForm from "../components/AddIngredientForm";
 import axios from "axios";
@@ -22,11 +24,15 @@ const UpdateIngredient = () => {
 
     fetchIngredient();
   }, [ingredientId]);
+
   return (
-    <div>
+    <Box p={4} bg='gray.100' borderRadius='md'>
+      <Heading as='h2' size='lg' mb={4}>
+        Update Ingredient
+      </Heading>
       <AddIngredientForm ingredient={ingredient} />
       <GoHomeButton />
-    </div>
+    </Box>
   );
 };
 
