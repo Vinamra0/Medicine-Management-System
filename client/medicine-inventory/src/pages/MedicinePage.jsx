@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import { Box, Heading, List, ListItem, Button } from "@chakra-ui/react";
 import GoHomeButton from "../components/GoHomeButton";
 
 const MedicineDetails = () => {
@@ -50,22 +51,35 @@ const MedicineDetails = () => {
   }
 
   return (
-    <>
-      <div>
-        <h2>{medicine.name}</h2>
-        <h3>Ingredients:</h3>
-        <ul>
+    <Box p='4' bg='gray.100' borderRadius='md'>
+      <Heading as='h2' size='lg' mb='4' color='teal.500'>
+        {medicine.name}
+      </Heading>
+      <Box>
+        <Heading as='h3' size='md' mb='2'>
+          Ingredients:
+        </Heading>
+        <List>
           {medicine.ingredientsRequired.map((ingredient) => (
-            <li key={ingredient._id}>
+            <ListItem key={ingredient._id}>
               {ingredient.ingredientId.name} - {ingredient.amount}
-            </li>
+            </ListItem>
           ))}
-        </ul>
-        {maxQuantity != null && <p>Producible Quantity: {maxQuantity}</p>}
-        <button onClick={handleDelete}>Delete Medicine</button>
-      </div>
+        </List>
+        {maxQuantity != null && (
+          <Box mt='2'>Producible Quantity: {maxQuantity}</Box>
+        )}
+        <Link to={`/medicines/update/${medicine._id}`}>
+          <Button colorScheme='teal' mt='2'>
+            Update Medicine
+          </Button>
+        </Link>
+        <Button colorScheme='red' mt='2' onClick={handleDelete}>
+          Delete Medicine
+        </Button>
+      </Box>
       <GoHomeButton />
-    </>
+    </Box>
   );
 };
 

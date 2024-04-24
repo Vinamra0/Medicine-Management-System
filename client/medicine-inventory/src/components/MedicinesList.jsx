@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import {
+  Box,
+  Heading,
+  List,
+  ListItem,
+  Link as ChakraLink,
+  Text,
+} from "@chakra-ui/react";
 
 const MedicinesList = () => {
   const [medicines, setMedicines] = useState([]);
@@ -20,16 +28,34 @@ const MedicinesList = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Medicines</h2>
-      <ul>
+    <Box p='4' bg='gray.100' borderRadius='md'>
+      <Heading as='h2' size='lg' mb='4' color='teal.500'>
+        Medicines
+      </Heading>
+      <List>
         {medicines.map((medicine) => (
-          <li key={medicine._id}>
-            <Link to={`/medicines/${medicine._id}`}>{medicine.name}</Link>
-          </li>
+          <ListItem
+            key={medicine._id}
+            mb='2'
+            p='2'
+            bg='white'
+            borderRadius='md'
+            boxShadow='md'
+          >
+            <ChakraLink
+              as={Link}
+              to={`/medicines/${medicine._id}`}
+              textDecoration='none'
+            >
+              {medicine.name}
+            </ChakraLink>
+            <Text color='gray.500' fontSize='sm'>
+              {medicine.description}
+            </Text>
+          </ListItem>
         ))}
-      </ul>
-    </div>
+      </List>
+    </Box>
   );
 };
 

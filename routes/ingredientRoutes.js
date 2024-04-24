@@ -24,6 +24,17 @@ router.get("/", async (req, res) => {
     res.status(500).send(error);
   }
 });
+router.get("/:id", async (req, res) => {
+  try {
+    const ingredient = await Ingredient.findById(req.params.id);
+    if (!ingredient) {
+      return res.status(404).send();
+    }
+    res.send(ingredient);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
 
 // Update an ingredient by ID
 router.patch("/:id", async (req, res) => {
@@ -53,11 +64,9 @@ router.delete("/:id", async (req, res) => {
     });
 
     if (medicine) {
-      return res
-        .status(400)
-        .json({
-          error: "Ingredient is used in a medicine and cannot be deleted.",
-        });
+      return res.status(400).json({
+        error: "Ingredient is used in a medicine and cannot be deleted.",
+      });
     }
 
     const ingredient = await Ingredient.findByIdAndDelete(ingredientId);

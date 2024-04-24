@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Box, Button, Link, List, ListItem, Heading } from "@chakra-ui/react";
 
 const IngredientsList = () => {
   const [ingredients, setIngredients] = useState([]);
@@ -32,18 +33,47 @@ const IngredientsList = () => {
   };
 
   return (
-    <div>
-      <h2>Ingredients in Stock</h2>
+    <Box>
+      <Heading as='h2' size='lg' mb='4'>
+        Ingredients in Stock
+      </Heading>
       {error && <div>Error: {error}</div>}
-      <ul>
+      <List spacing={3}>
         {ingredients.map((ingredient) => (
-          <li key={ingredient._id}>
-            {ingredient.name} - {ingredient.quantity}
-            <button onClick={() => handleDelete(ingredient._id)}>Delete</button>
-          </li>
+          <ListItem
+            key={ingredient._id}
+            bg='gray.100'
+            p='4'
+            borderRadius='md'
+            boxShadow='md'
+          >
+            <Box>
+              <Heading as='h3' size='md' mb='2'>
+                {ingredient.name}
+              </Heading>
+              <p>Type: {ingredient.type}</p>
+              <p>Quantity: {ingredient.quantity}</p>
+            </Box>
+            <Box mt='2'>
+              <Button
+                as={Link}
+                to={`/ingredients/update/${ingredient._id}`}
+                colorScheme='teal'
+                mr='2'
+              >
+                Update
+              </Button>
+              <Button
+                colorScheme='red'
+                onClick={() => handleDelete(ingredient._id)}
+              >
+                Delete
+              </Button>
+            </Box>
+          </ListItem>
         ))}
-      </ul>
-    </div>
+      </List>
+    </Box>
   );
 };
 
